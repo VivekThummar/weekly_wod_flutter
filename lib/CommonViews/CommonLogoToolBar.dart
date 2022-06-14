@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
 import 'package:weekly_wod_flutter/Constant/StringConstants.dart';
