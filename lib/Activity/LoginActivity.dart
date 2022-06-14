@@ -32,7 +32,6 @@ class LoginBodyState extends State<LoginActivity> {
   String password = "";
 
   final _formKey = GlobalKey<FormState>();
-  var isLoading = false;
 
   void _submit() {
     final isValid = _formKey.currentState?.validate();

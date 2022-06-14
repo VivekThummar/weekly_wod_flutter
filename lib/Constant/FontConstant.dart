@@ -43,4 +43,12 @@ class FontConstant {
         fontWeight: FontWeight.w600);
   }
 
+  static TextStyle semiBold12TextDark() {
+    return const TextStyle(
+        color: ColorConstants.textDarkColor,
+        fontFamily: 'rubik',
+        fontSize: 12,
+        fontWeight: FontWeight.w600);
+  }
+
 }
