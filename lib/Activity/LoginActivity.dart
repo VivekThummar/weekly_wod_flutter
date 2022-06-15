@@ -81,14 +81,13 @@ class LoginBodyState extends State<LoginActivity> {
                               validator: (value) {
                                 if (value == null ||
                                     value.isEmpty ||
-                                    value.length < 3 ||
-                                    !value.contains('.com')) {
-                                  return 'Invalid email!';
+                                    value.length < 3) {
+                                  return 'Invalid Username!';
                                 }
                                 return null;
                               },
                             ),
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 8),
                             TextFormField(
                               decoration: InputDecoration(
                                   prefixIcon: const Icon(Icons.lock_outline),
@@ -144,20 +143,17 @@ class LoginBodyState extends State<LoginActivity> {
                               ],
                             ),
                             // createAcText(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 32.0),
-                              child:
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const RegisterActivity()));
-                                },
-                                child: Text('Create an Account', style: FontConstant.regular11TextDark()),
-                              ),
+                            const SizedBox(height: 32),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const RegisterActivity()));
+                              },
+                              child: Text('Create an Account', style: FontConstant.regular11TextDark()),
                             ),
+                            const SizedBox(height: 32),
                           ],
                         ),
                       ),
