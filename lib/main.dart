@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/Activity/LoginActivity.dart';
+import 'package:weekly_wod_flutter/Activity/RegisterActivity.dart';
 
 void main() {
   runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: Landing(),
   ));
 }
@@ -12,6 +14,6 @@ class Landing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const LoginActivity();
+    return const RegisterActivity();
   }
 }

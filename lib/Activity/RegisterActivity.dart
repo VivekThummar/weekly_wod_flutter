@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:weekly_wod_flutter/CommonViews/CommonLogoToolBar.dart';
 import 'package:weekly_wod_flutter/CommonViews/ThemeRectangle.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
@@ -15,22 +16,38 @@ class RegisterActivity extends StatefulWidget {
 
 class RegisterBodyState extends State<RegisterActivity> {
   final _formKey = GlobalKey<FormState>();
+  bool _switchValue = false;
+  bool isTermsAccepted = false;
+  bool isRuleBookAccepted = false;
+  bool isLiabilityAccepted = false;
 
-  void _submit() {
-    // final isValid = _formKey.currentState?.validate();
-    // if (!isValid!) {
-    //   return;
-    // }
-    if (email.compareTo(confirmEmail) != 0) {
-      printDebuggg('Emails are not Matching');
-    } else if (email.compareTo(confirmEmail) == 0) {
-      printDebuggg('Emails are Matching');
+  late SnackBar snackBar;
+
+  bool _submit() {
+    final isValid = _formKey.currentState?.validate();
+    if (_switchValue) {
+      _formKey.currentState?.save();
+      return true;
+    } else if (!isValid!) {
+      return false;
+    } else if (!isTermsAccepted) {
+      return false;
+    } else if (!isRuleBookAccepted) {
+      return false;
+    } else if (!isLiabilityAccepted) {
+      return false;
+    } else {
+      _formKey.currentState?.save();
+      return true;
     }
-    return;
-    _formKey.currentState?.save();
   }
 
-  String name = "", userName = "", password = "", confirmPassword = "", email = "", confirmEmail = "";
+  String name = "",
+      userName = "",
+      password = "",
+      confirmPassword = "",
+      email = "",
+      confirmEmail = "";
   String street = "", city = "", zipCode = "", paypalEmail = "", taxID = "";
 
   @override
@@ -54,6 +71,37 @@ class RegisterBodyState extends State<RegisterActivity> {
                     const SizedBox(height: 25),
                     Text('Register', style: FontConstant.semiBold14Theme()),
                     const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('By-Pass: ',
+                            style: FontConstant.semiBold14Theme()),
+                        FlutterSwitch(
+                          width: 47.0,
+                          height: 29.0,
+                          value: _switchValue,
+                          onToggle: (bool value) {
+                            setState(() {
+                              _switchValue = value;
+                            });
+                          },
+                          borderRadius: 30.0,
+                          padding: 0.0,
+                          toggleColor: ColorConstants.themeColor,
+                          activeColor: Colors.white,
+                          inactiveColor: Colors.white,
+                          activeSwitchBorder: Border.all(
+                            color: ColorConstants.inputTextColor,
+                            width: 2.0,
+                          ),
+                          inactiveSwitchBorder: Border.all(
+                            color: ColorConstants.themeColor,
+                            width: 2.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24.0),
                       child: Form(
@@ -74,16 +122,14 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.person_outline),
                                   hintText: 'Name'),
                               keyboardType: TextInputType.text,
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  name = value;
-                                });
+                              onChanged: (text) {
+                                name = text;
                               },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.length < 3) {
+                                if (value == null || value.isEmpty) {
                                   return 'Invalid Name!';
+                                } else if (value.length < 3) {
+                                  return 'Name should be at least 3 characters long';
                                 }
                                 return null;
                               },
@@ -94,16 +140,14 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.person_outline),
                                   hintText: 'Username'),
                               keyboardType: TextInputType.text,
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  userName = value;
-                                });
+                              onChanged: (text) {
+                                userName = text;
                               },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.length < 3) {
+                                if (value == null || value.isEmpty) {
                                   return 'Invalid Username!';
+                                } else if (value.length < 3) {
+                                  return 'Username should be at least 3 characters long';
                                 }
                                 return null;
                               },
@@ -114,18 +158,16 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.lock_outline),
                                   hintText: 'Password'),
                               keyboardType: TextInputType.visiblePassword,
+                              onChanged: (text) {
+                                password = text;
+                              },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.length < 7) {
+                                if (value == null || value.isEmpty) {
                                   return 'Invalid password!';
+                                } else if (value.length < 7) {
+                                  return 'Password should be at least 7 characters long';
                                 }
                                 return null;
-                              },
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  password = value;
-                                });
                               },
                             ),
                             const SizedBox(height: 8),
@@ -134,20 +176,20 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.lock_outline),
                                   hintText: 'Confirm Password'),
                               keyboardType: TextInputType.visiblePassword,
+                              onChanged: (text) {
+                                confirmPassword = text;
+                              },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.length < 7) {
+                                if (value == null || value.isEmpty) {
                                   return 'Invalid password!';
-                                } else if (password.compareTo(confirmPassword) != 0) {
+                                } else if (value.length < 7) {
+                                  return 'Password should be at least 7 characters long';
+                                } else if (password
+                                        .compareTo(confirmPassword) !=
+                                    0) {
                                   return 'Passwords are not Matching';
                                 }
                                 return null;
-                              },
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  confirmPassword = value;
-                                });
                               },
                             ),
                             const SizedBox(height: 8),
@@ -156,10 +198,8 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.email_outlined),
                                   hintText: 'Email Address'),
                               keyboardType: TextInputType.emailAddress,
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  email = value;
-                                });
+                              onChanged: (text) {
+                                email = text;
                               },
                               validator: (value) {
                                 if (value == null ||
@@ -177,10 +217,8 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.email_outlined),
                                   hintText: 'Confirm Email Address'),
                               keyboardType: TextInputType.emailAddress,
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  confirmEmail = value;
-                                });
+                              onChanged: (text) {
+                                confirmEmail = text;
                               },
                               validator: (value) {
                                 if (value == null ||
@@ -188,13 +226,9 @@ class RegisterBodyState extends State<RegisterActivity> {
                                     !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                         .hasMatch(value)) {
                                   return 'Invalid Email!';
+                                } else if (email.compareTo(confirmEmail) != 0) {
+                                  return 'Emails are not Matching';
                                 }
-
-                                // else if (email != confirmEmail) {
-                                //   return 'Emails are not Matching';
-                                // } else if (email == confirmEmail) {
-                                //   return 'Emails are Matching';
-                                // }
 
                                 return null;
                               },
@@ -215,14 +249,11 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.home),
                                   hintText: 'Street'),
                               keyboardType: TextInputType.text,
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  street = value;
-                                });
+                              onChanged: (text) {
+                                street = text;
                               },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'Enter Street Address';
                                 }
                                 return null;
@@ -234,17 +265,14 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.location_city),
                                   hintText: 'City'),
                               keyboardType: TextInputType.text,
+                              onChanged: (text) {
+                                city = text;
+                              },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'Enter City name';
                                 }
                                 return null;
-                              },
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  city = value;
-                                });
                               },
                             ),
                             const SizedBox(height: 8),
@@ -253,17 +281,14 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.qr_code_sharp),
                                   hintText: 'Zip Code'),
                               keyboardType: TextInputType.number,
+                              onChanged: (text) {
+                                name = text;
+                              },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'Enter Zip Code';
                                 }
                                 return null;
-                              },
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  zipCode = value;
-                                });
                               },
                             ),
                             const SizedBox(height: 8),
@@ -272,10 +297,8 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   prefixIcon: Icon(Icons.paypal),
                                   hintText: 'Paypal Email'),
                               keyboardType: TextInputType.emailAddress,
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  paypalEmail = value;
-                                });
+                              onChanged: (text) {
+                                paypalEmail = text;
                               },
                               validator: (value) {
                                 if (value == null ||
@@ -291,22 +314,79 @@ class RegisterBodyState extends State<RegisterActivity> {
                             TextFormField(
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.add_card_outlined),
-                                  hintText: 'social security number / US tax Id'),
+                                  hintText:
+                                      'social security number / US tax Id'),
                               keyboardType: TextInputType.text,
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  taxID = value;
-                                });
+                              onChanged: (text) {
+                                taxID = text;
                               },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'Enter Valid Tax ID';
                                 }
                                 return null;
                               },
                             ),
-
+                            const SizedBox(height: 16),
+                            Row(
+                              children: <Widget>[
+                                Checkbox(
+                                  value: isTermsAccepted,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isTermsAccepted = value!;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 10), //SizedBox
+                                Text(
+                                  'Agree with Terms & Conditions',
+                                  style: TextStyle(
+                                    fontFamily: 'rubik',
+                                    color: checkboxColor(isTermsAccepted),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Checkbox(
+                                  value: isRuleBookAccepted,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isRuleBookAccepted = value!;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 10), //SizedBox
+                                Text(
+                                  'Agree with Rule Book',
+                                  style: TextStyle(
+                                      fontFamily: 'rubik',
+                                      color: checkboxColor(isRuleBookAccepted)),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Checkbox(
+                                  value: isLiabilityAccepted,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isLiabilityAccepted = value!;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 10), //SizedBox
+                                Text(
+                                  'Agreeing to waiver of liability',
+                                  style: TextStyle(
+                                      fontFamily: 'rubik',
+                                      color:
+                                          checkboxColor(isLiabilityAccepted)),
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: 32),
                             ElevatedButton(
                                 child: Text('Register',
@@ -316,11 +396,24 @@ class RegisterBodyState extends State<RegisterActivity> {
                                     shape: const StadiumBorder()),
                                 onPressed: () {
                                   setState(() {
-                                    _submit();
+                                    bool isValid = _submit();
+                                    ScaffoldMessenger.of(context)
+                                        .removeCurrentSnackBar();
+                                    if (!isValid) {
+                                      if (!isTermsAccepted) {
+                                        displaySnackBar(
+                                            'Please agree with Terms and Conditions');
+                                      } else if (!isRuleBookAccepted) {
+                                        displaySnackBar(
+                                            'Please agree with Rule Book');
+                                      } else if (!isLiabilityAccepted) {
+                                        displaySnackBar(
+                                            'Please agree with waiver of liability');
+                                      }
+                                    }
                                   });
                                 }),
                             const SizedBox(height: 32),
-
                           ],
                         ),
                       ),
@@ -335,5 +428,18 @@ class RegisterBodyState extends State<RegisterActivity> {
     );
   }
 
-  void printDebuggg(String s) {}
+  void displaySnackBar(String message) {
+    snackBar = SnackBar(
+      content: Text(message),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+}
+
+Color checkboxColor(bool checked) {
+  if (checked) {
+    return ColorConstants.themeColor;
+  } else {
+    return ColorConstants.textDarkColor;
+  }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:weekly_wod_flutter/Activity/RegisterActivity.dart';
+import 'package:weekly_wod_flutter/CommonViews/CommonLogoToolBar.dart';
 import 'package:weekly_wod_flutter/CommonViews/ThemeRectangle.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
-import 'package:weekly_wod_flutter/CommonViews/CommonLogoToolBar.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
 
 class LoginActivity extends StatefulWidget {
@@ -32,9 +33,13 @@ class LoginBodyState extends State<LoginActivity> {
   String password = "";
 
   final _formKey = GlobalKey<FormState>();
+  bool _switchValue = false;
 
   void _submit() {
     final isValid = _formKey.currentState?.validate();
+    if (_switchValue) {
+      return;
+    }
     if (!isValid!) {
       return;
     }
@@ -62,6 +67,37 @@ class LoginBodyState extends State<LoginActivity> {
                     const SizedBox(height: 25),
                     Text('Login', style: FontConstant.semiBold14Theme()),
                     const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('By-Pass: ',
+                            style: FontConstant.semiBold14Theme()),
+                        FlutterSwitch(
+                          width: 47.0,
+                          height: 29.0,
+                          value: _switchValue,
+                          onToggle: (bool value) {
+                            setState(() {
+                              _switchValue = value;
+                            });
+                          },
+                          borderRadius: 30.0,
+                          padding: 0.0,
+                          toggleColor: ColorConstants.themeColor,
+                          activeColor: Colors.white,
+                          inactiveColor: Colors.white,
+                          activeSwitchBorder: Border.all(
+                            color: ColorConstants.inputTextColor,
+                            width: 2.0,
+                          ),
+                          inactiveSwitchBorder: Border.all(
+                            color: ColorConstants.themeColor,
+                            width: 2.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24.0),
                       child: Form(
@@ -73,16 +109,14 @@ class LoginBodyState extends State<LoginActivity> {
                                   prefixIcon: Icon(Icons.person_outline),
                                   hintText: 'Username'),
                               keyboardType: TextInputType.text,
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  userName = value;
-                                });
+                              onChanged: (text) {
+                                userName = text;
                               },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.length < 3) {
+                                if (value == null || value.isEmpty) {
                                   return 'Invalid Username!';
+                                } else if (value.length < 3) {
+                                  return 'Username should be at least 3 characters long';
                                 }
                                 return null;
                               },
@@ -102,17 +136,15 @@ class LoginBodyState extends State<LoginActivity> {
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: _obscureText,
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.length < 7) {
+                                if (value == null || value.isEmpty) {
                                   return 'Invalid password!';
+                                } else if (value.length < 7) {
+                                  return 'Password should be at least 7 characters long';
                                 }
                                 return null;
                               },
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  password = value;
-                                });
+                              onChanged: (text) {
+                                password = text;
                               },
                             ),
                             forgotPass(),
@@ -149,9 +181,11 @@ class LoginBodyState extends State<LoginActivity> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const RegisterActivity()));
+                                        builder: (context) =>
+                                            const RegisterActivity()));
                               },
-                              child: Text('Create an Account', style: FontConstant.regular11TextDark()),
+                              child: Text('Create an Account',
+                                  style: FontConstant.regular11TextDark()),
                             ),
                             const SizedBox(height: 32),
                           ],
@@ -166,29 +200,6 @@ class LoginBodyState extends State<LoginActivity> {
         ],
       ),
     );
-
-    // return Scaffold(
-    //   body: Stack(
-    //     children: [
-    //       Container(
-    //         color: ColorConstants.themeColor,
-    //       ),
-    //       Column(
-    //         children: <Widget>[
-    //           const Padding(
-    //             padding: EdgeInsets.only(top: 32),
-    //             child: CommonLogoToolBar(),
-    //           ),
-    //           Stack(
-    //             children: const <Widget>[
-    //               ThemeRectangle(),
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }
 
