@@ -17,12 +17,21 @@ class RegisterBodyState extends State<RegisterActivity> {
   final _formKey = GlobalKey<FormState>();
 
   void _submit() {
-    final isValid = _formKey.currentState?.validate();
-    if (!isValid!) {
-      return;
+    // final isValid = _formKey.currentState?.validate();
+    // if (!isValid!) {
+    //   return;
+    // }
+    if (email.compareTo(confirmEmail) != 0) {
+      printDebuggg('Emails are not Matching');
+    } else if (email.compareTo(confirmEmail) == 0) {
+      printDebuggg('Emails are Matching');
     }
+    return;
     _formKey.currentState?.save();
   }
+
+  String name = "", userName = "", password = "", confirmPassword = "", email = "", confirmEmail = "";
+  String street = "", city = "", zipCode = "", paypalEmail = "", taxID = "";
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +72,11 @@ class RegisterBodyState extends State<RegisterActivity> {
                             TextFormField(
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.person_outline),
-                                  labelText: 'Name'),
-                              keyboardType: TextInputType.emailAddress,
+                                  hintText: 'Name'),
+                              keyboardType: TextInputType.text,
                               onFieldSubmitted: (value) {
                                 setState(() {
-                                  // userName = value;
+                                  name = value;
                                 });
                               },
                               validator: (value) {
@@ -83,11 +92,11 @@ class RegisterBodyState extends State<RegisterActivity> {
                             TextFormField(
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.person_outline),
-                                  labelText: 'Username'),
-                              keyboardType: TextInputType.emailAddress,
+                                  hintText: 'Username'),
+                              keyboardType: TextInputType.text,
                               onFieldSubmitted: (value) {
                                 setState(() {
-                                  // userName = value;
+                                  userName = value;
                                 });
                               },
                               validator: (value) {
@@ -103,9 +112,8 @@ class RegisterBodyState extends State<RegisterActivity> {
                             TextFormField(
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.lock_outline),
-                                  labelText: 'Password'),
+                                  hintText: 'Password'),
                               keyboardType: TextInputType.visiblePassword,
-                              // obscureText: _obscureText,
                               validator: (value) {
                                 if (value == null ||
                                     value.isEmpty ||
@@ -116,7 +124,7 @@ class RegisterBodyState extends State<RegisterActivity> {
                               },
                               onFieldSubmitted: (value) {
                                 setState(() {
-                                  // password = value;
+                                  password = value;
                                 });
                               },
                             ),
@@ -124,20 +132,21 @@ class RegisterBodyState extends State<RegisterActivity> {
                             TextFormField(
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.lock_outline),
-                                  labelText: 'Confirm Password'),
+                                  hintText: 'Confirm Password'),
                               keyboardType: TextInputType.visiblePassword,
-                              // obscureText: _obscureText,
                               validator: (value) {
                                 if (value == null ||
                                     value.isEmpty ||
                                     value.length < 7) {
                                   return 'Invalid password!';
+                                } else if (password.compareTo(confirmPassword) != 0) {
+                                  return 'Passwords are not Matching';
                                 }
                                 return null;
                               },
                               onFieldSubmitted: (value) {
                                 setState(() {
-                                  // password = value;
+                                  confirmPassword = value;
                                 });
                               },
                             ),
@@ -145,11 +154,11 @@ class RegisterBodyState extends State<RegisterActivity> {
                             TextFormField(
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.email_outlined),
-                                  labelText: 'Email Address'),
+                                  hintText: 'Email Address'),
                               keyboardType: TextInputType.emailAddress,
                               onFieldSubmitted: (value) {
                                 setState(() {
-                                  // userName = value;
+                                  email = value;
                                 });
                               },
                               validator: (value) {
@@ -166,11 +175,11 @@ class RegisterBodyState extends State<RegisterActivity> {
                             TextFormField(
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.email_outlined),
-                                  labelText: 'Confirm Email Address'),
+                                  hintText: 'Confirm Email Address'),
                               keyboardType: TextInputType.emailAddress,
                               onFieldSubmitted: (value) {
                                 setState(() {
-                                  // userName = value;
+                                  confirmEmail = value;
                                 });
                               },
                               validator: (value) {
@@ -180,9 +189,124 @@ class RegisterBodyState extends State<RegisterActivity> {
                                         .hasMatch(value)) {
                                   return 'Invalid Email!';
                                 }
+
+                                // else if (email != confirmEmail) {
+                                //   return 'Emails are not Matching';
+                                // } else if (email == confirmEmail) {
+                                //   return 'Emails are Matching';
+                                // }
+
                                 return null;
                               },
                             ),
+                            const SizedBox(height: 28),
+                            SizedBox(
+                              height: 25,
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                'Fields',
+                                style: FontConstant.semiBold12TextDark(),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.home),
+                                  hintText: 'Street'),
+                              keyboardType: TextInputType.text,
+                              onFieldSubmitted: (value) {
+                                setState(() {
+                                  street = value;
+                                });
+                              },
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty) {
+                                  return 'Enter Street Address';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.location_city),
+                                  hintText: 'City'),
+                              keyboardType: TextInputType.text,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty) {
+                                  return 'Enter City name';
+                                }
+                                return null;
+                              },
+                              onFieldSubmitted: (value) {
+                                setState(() {
+                                  city = value;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.qr_code_sharp),
+                                  hintText: 'Zip Code'),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty) {
+                                  return 'Enter Zip Code';
+                                }
+                                return null;
+                              },
+                              onFieldSubmitted: (value) {
+                                setState(() {
+                                  zipCode = value;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.paypal),
+                                  hintText: 'Paypal Email'),
+                              keyboardType: TextInputType.emailAddress,
+                              onFieldSubmitted: (value) {
+                                setState(() {
+                                  paypalEmail = value;
+                                });
+                              },
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                        .hasMatch(value)) {
+                                  return 'Invalid Paypal Email!';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.add_card_outlined),
+                                  hintText: 'social security number / US tax Id'),
+                              keyboardType: TextInputType.text,
+                              onFieldSubmitted: (value) {
+                                setState(() {
+                                  taxID = value;
+                                });
+                              },
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty) {
+                                  return 'Enter Valid Tax ID';
+                                }
+                                return null;
+                              },
+                            ),
+
                             const SizedBox(height: 32),
                             ElevatedButton(
                                 child: Text('Register',
@@ -196,16 +320,7 @@ class RegisterBodyState extends State<RegisterActivity> {
                                   });
                                 }),
                             const SizedBox(height: 32),
-                            SizedBox(
-                              height: 25,
-                              width: MediaQuery.of(context).size.width,
-                              child: Text(
-                                'Fields',
-                                style: FontConstant.semiBold12TextDark(),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                            const SizedBox(height: 32),
+
                           ],
                         ),
                       ),
@@ -219,4 +334,6 @@ class RegisterBodyState extends State<RegisterActivity> {
       ),
     );
   }
+
+  void printDebuggg(String s) {}
 }

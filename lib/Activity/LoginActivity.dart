@@ -24,9 +24,9 @@ class LoginBodyState extends State<LoginActivity> {
     });
   }
 
-  String apiError = "Username is not Correct";
-  bool wrongUserName = false;
-  bool wrongPassword = false;
+  // String apiError = "Username is not Correct";
+  // bool wrongUserName = false;
+  // bool wrongPassword = false;
 
   String userName = "";
   String password = "";
@@ -71,8 +71,8 @@ class LoginBodyState extends State<LoginActivity> {
                             TextFormField(
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.person_outline),
-                                  labelText: 'Username'),
-                              keyboardType: TextInputType.emailAddress,
+                                  hintText: 'Username'),
+                              keyboardType: TextInputType.text,
                               onFieldSubmitted: (value) {
                                 setState(() {
                                   userName = value;
@@ -98,7 +98,7 @@ class LoginBodyState extends State<LoginActivity> {
                                     icon: const Icon(
                                         Icons.remove_red_eye_outlined),
                                   ),
-                                  labelText: 'Password'),
+                                  hintText: 'Password'),
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: _obscureText,
                               validator: (value) {
