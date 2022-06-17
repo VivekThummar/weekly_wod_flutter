@@ -3,8 +3,10 @@ class Assets {
   Assets._();
 
   static const String imagesGoogle = 'images/google.png';
+  static const String imagesIcDrawer = 'images/ic_drawer.png';
   static const String imagesIcFacebook = 'images/ic_facebook.png';
   static const String imagesIcGoogle = 'images/ic_google.png';
+  static const String imagesIcHomepageLogo = 'images/ic_homepage_logo.png';
   static const String imagesLogo = 'images/logo.png';
 
 }

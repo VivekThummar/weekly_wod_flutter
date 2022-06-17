@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weekly_wod_flutter/Activity/HomeActivity.dart';
 import 'package:weekly_wod_flutter/Activity/LoginActivity.dart';
 import 'package:weekly_wod_flutter/Activity/RegisterActivity.dart';
 
@@ -14,6 +15,6 @@ class Landing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const RegisterActivity();
+    return const HomeActivity();
   }
 }
