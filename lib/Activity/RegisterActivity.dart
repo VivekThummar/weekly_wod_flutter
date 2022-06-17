@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:intl/intl.dart';
+import 'package:weekly_wod_flutter/Activity/HomeActivity.dart';
 import 'package:weekly_wod_flutter/CommonViews/CommonLogoToolBar.dart';
 import 'package:weekly_wod_flutter/CommonViews/ThemeRectangle.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
@@ -16,10 +18,29 @@ class RegisterActivity extends StatefulWidget {
 
 class RegisterBodyState extends State<RegisterActivity> {
   final _formKey = GlobalKey<FormState>();
+
   bool _switchValue = false;
   bool isTermsAccepted = false;
   bool isRuleBookAccepted = false;
   bool isLiabilityAccepted = false;
+
+  TextEditingController dobController = TextEditingController();
+  String dob = '';
+  String state = '';
+
+  static List<String> menuItems = <String>[
+    'State 1',
+    'State 2',
+    'State 3',
+    'State 4',
+  ];
+
+  List<DropdownMenuItem<String>> stateList = menuItems
+      .map((String value) => DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          ))
+      .toList();
 
   late SnackBar snackBar;
 
@@ -30,11 +51,11 @@ class RegisterBodyState extends State<RegisterActivity> {
       return true;
     } else if (!isValid!) {
       return false;
-    } else if (!isTermsAccepted) {
+    } else if (!isTermsAccepted ||
+        !isRuleBookAccepted ||
+        !isLiabilityAccepted) {
       return false;
-    } else if (!isRuleBookAccepted) {
-      return false;
-    } else if (!isLiabilityAccepted) {
+    } else if (state.isEmpty) {
       return false;
     } else {
       _formKey.currentState?.save();
@@ -66,6 +87,7 @@ class RegisterBodyState extends State<RegisterActivity> {
             padding: const EdgeInsets.only(top: 175.0),
             child: Center(
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     const SizedBox(height: 25),
@@ -245,8 +267,27 @@ class RegisterBodyState extends State<RegisterActivity> {
                             ),
                             const SizedBox(height: 8),
                             TextFormField(
+                              readOnly: true,
                               decoration: const InputDecoration(
-                                  prefixIcon: Icon(Icons.home),
+                                  prefixIcon: Icon(Icons.calendar_month),
+                                  hintText: 'Date of birth'),
+                              keyboardType: TextInputType.text,
+                              onTap: _selectDate,
+                              controller: dobController,
+                              // onChanged: (text) {
+                              //   dob = text;
+                              // },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Select Date of Birth';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.horizontal_distribute),
                                   hintText: 'Street'),
                               keyboardType: TextInputType.text,
                               onChanged: (text) {
@@ -290,6 +331,28 @@ class RegisterBodyState extends State<RegisterActivity> {
                                 }
                                 return null;
                               },
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              width: double.infinity,
+                              child: DropdownButtonFormField(
+                                  decoration: const InputDecoration(
+                                    prefixIcon:
+                                        Icon(Icons.sixty_fps_select_outlined),
+                                  ),
+                                  isExpanded: true,
+                                  icon: const Icon(Icons.arrow_drop_down),
+                                  hint: const Text('Select State'),
+                                  items: stateList,
+                                  onChanged: (String? newValue) {
+                                    if (newValue != null) {
+                                      setState(
+                                        () => {
+                                          state = newValue,
+                                        },
+                                      );
+                                    }
+                                  }),
                             ),
                             const SizedBox(height: 8),
                             TextFormField(
@@ -409,7 +472,15 @@ class RegisterBodyState extends State<RegisterActivity> {
                                       } else if (!isLiabilityAccepted) {
                                         displaySnackBar(
                                             'Please agree with waiver of liability');
+                                      } else if (state.isEmpty) {
+                                        displaySnackBar('Please Select State');
                                       }
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomeActivity()));
                                     }
                                   });
                                 }),
@@ -433,6 +504,25 @@ class RegisterBodyState extends State<RegisterActivity> {
       content: Text(message),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  DateTime selectedDate = DateTime.now();
+
+  _selectDate() async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1970),
+      lastDate: DateTime(selectedDate.year + 1),
+    );
+    if (selected != null && selected != selectedDate) {
+      setState(() {
+        selectedDate = selected;
+        // dobHint =
+        //     '${selectedDate.year}/${selectedDate.month}/${selectedDate.day}';
+        dobController.text = DateFormat('yyyy/MM/dd').format(selectedDate);
+      });
+    }
   }
 }
 
