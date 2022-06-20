@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
 
 class FontConstant {
-
   // static TextStyle createStyle(
   //     Color txtColor, String family, double size, FontWeight weight) {
   //   return TextStyle(
@@ -30,9 +29,7 @@ class FontConstant {
 
   static TextStyle regular11TextDark() {
     return const TextStyle(
-        color: ColorConstants.textDarkColor,
-        fontFamily: 'rubik',
-        fontSize: 11);
+        color: ColorConstants.textDarkColor, fontFamily: 'rubik', fontSize: 11);
   }
 
   static TextStyle semiBoldThemeButton() {
@@ -51,4 +48,11 @@ class FontConstant {
         fontWeight: FontWeight.w600);
   }
 
+  static TextStyle regular13TextDark() {
+    return const TextStyle(
+      color: ColorConstants.textDarkColor,
+      fontFamily: 'rubik',
+      fontSize: 13,
+    );
+  }
 }

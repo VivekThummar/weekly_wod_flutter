@@ -2,11 +2,20 @@
 class Assets {
   Assets._();
 
+  static const String imagesFacebook = 'images/facebook.png';
   static const String imagesGoogle = 'images/google.png';
   static const String imagesIcDrawer = 'images/ic_drawer.png';
+  static const String imagesIcDrawerContactUs = 'images/ic_drawer_contact_us.png';
+  static const String imagesIcDrawerHomee = 'images/ic_drawer_home.png';
+  static const String imagesIcDrawerNotification = 'images/ic_drawer_notification.png';
+  static const String imagesIcDrawerPoints = 'images/ic_drawer_points.png';
+  static const String imagesIcDrawerProfile = 'images/ic_drawer_profile.png';
+  static const String imagesIcDrawerSettings = 'images/ic_drawer_settings.png';
+  static const String imagesIcDrawerSignOut = 'images/ic_drawer_sign_out.png';
   static const String imagesIcFacebook = 'images/ic_facebook.png';
   static const String imagesIcGoogle = 'images/ic_google.png';
   static const String imagesIcHomepageLogo = 'images/ic_homepage_logo.png';
+  static const String imagesIcProfileMen = 'images/ic_profile_men.png';
   static const String imagesLogo = 'images/logo.png';
 
 }

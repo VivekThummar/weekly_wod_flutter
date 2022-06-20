@@ -161,7 +161,8 @@ class LoginBodyState extends State<LoginActivity> {
                               forgotPass(),
                               ElevatedButton(
                                   child: Text('Log In',
-                                      style: FontConstant.semiBoldThemeButton()),
+                                      style:
+                                          FontConstant.semiBoldThemeButton()),
                                   style: ElevatedButton.styleFrom(
                                       minimumSize: const Size.fromHeight(50),
                                       shape: const StadiumBorder()),
@@ -184,6 +185,35 @@ class LoginBodyState extends State<LoginActivity> {
                                           AssetImage('images/ic_facebook.png'),
                                       radius: 25.0)
                                 ],
+                                // children: [
+                                //   InkWell(
+                                //     child: InkWell(
+                                //       onTap: () {},
+                                //       child: ClipRRect(
+                                //         borderRadius:
+                                //         BorderRadius.circular(35.0),
+                                //         child: Image.asset(
+                                //             'images/ic_google.png',
+                                //             width: 70.0,
+                                //             height: 70.0),
+                                //       ),
+                                //     ),
+                                //   ),
+                                //   const SizedBox(width: 20),
+                                //   InkWell(
+                                //     child: InkWell(
+                                //       onTap: () {},
+                                //       child: ClipRRect(
+                                //         borderRadius:
+                                //         BorderRadius.circular(35.0),
+                                //         child: Image.asset(
+                                //             'images/facebook.png',
+                                //             width: 70.0,
+                                //             height: 70.0),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ],
                               ),
                               // createAcText(),
                               const SizedBox(height: 32),
