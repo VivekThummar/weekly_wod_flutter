@@ -16,6 +16,6 @@ class Landing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage();
+    return const HomeActivity();
   }
 }
