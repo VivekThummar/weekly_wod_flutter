@@ -487,7 +487,7 @@ class RegisterBodyState extends State<RegisterActivity> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const HomeActivity()));
+                                                    HomeActivity()));
                                       }
                                     });
                                   }),

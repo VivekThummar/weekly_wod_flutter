@@ -40,7 +40,7 @@ class LoginBodyState extends State<LoginActivity> {
     final isValid = _formKey.currentState?.validate();
     if (_switchValue) {
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const HomeActivity()));
+          MaterialPageRoute(builder: (context) => HomeActivity()));
       return;
     }
     if (!isValid!) {
@@ -49,7 +49,7 @@ class LoginBodyState extends State<LoginActivity> {
     _formKey.currentState?.reset();
 
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HomeActivity()));
+        context, MaterialPageRoute(builder: (context) => HomeActivity()));
   }
 
   @override

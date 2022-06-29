@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/Activity/HomeActivity.dart';
 import 'package:weekly_wod_flutter/Activity/LoginActivity.dart';
 import 'package:weekly_wod_flutter/Activity/RegisterActivity.dart';
-import 'package:weekly_wod_flutter/temp/home_page.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -16,6 +15,6 @@ class Landing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeActivity();
+    return HomeActivity();
   }
 }
