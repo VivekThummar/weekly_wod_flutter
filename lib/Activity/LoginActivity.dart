@@ -6,6 +6,7 @@ import 'package:weekly_wod_flutter/CommonViews/CommonLogoToolBar.dart';
 import 'package:weekly_wod_flutter/CommonViews/ThemeRectangle.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
+import 'package:weekly_wod_flutter/generated/assets.dart';
 
 class LoginActivity extends StatefulWidget {
   const LoginActivity({Key? key}) : super(key: key);
@@ -177,12 +178,12 @@ class LoginBodyState extends State<LoginActivity> {
                                 children: const [
                                   CircleAvatar(
                                       backgroundImage:
-                                          AssetImage('images/ic_google.png'),
+                                          AssetImage(Assets.imagesIcGoogle),
                                       radius: 25.0),
                                   SizedBox(width: 20),
                                   CircleAvatar(
                                       backgroundImage:
-                                          AssetImage('images/ic_facebook.png'),
+                                          AssetImage(Assets.imagesIcFacebook),
                                       radius: 25.0)
                                 ],
                                 // children: [

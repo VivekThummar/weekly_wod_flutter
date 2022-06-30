@@ -1,13 +1,26 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:weekly_wod_flutter/generated/assets.dart';
 
-class HomeFragment extends StatelessWidget {
+class HomeFragment extends StatefulWidget {
+  const HomeFragment({Key? key}) : super(key: key);
+
+  @override
+  HomeFragmentState createState() {
+    return HomeFragmentState();
+  }
+}
+
+class HomeFragmentState extends State<HomeFragment> {
+  int _current = 0;
+
   final List<ImageProvider> imageList = [
-    Image.asset("images/ic_google.png").image,
-    Image.asset("images/ic_facebook.png").image
+    Image.asset(Assets.imagesCaptainAmerica).image,
+    Image.asset(Assets.imagesDoctorStrange).image,
+    Image.asset(Assets.imagesHulk).image,
+    Image.asset(Assets.imagesIronMan).image,
+    Image.asset(Assets.imagesThor).image
   ];
-
-  HomeFragment({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +28,7 @@ class HomeFragment extends StatelessWidget {
     var indicatorList = <Container>[];
     for (var i = 0; i < imageList.length; i++) {
       sliderList.add(Container(
-        margin: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
           image: DecorationImage(
             image: imageList.elementAt(i),
             fit: BoxFit.cover,
@@ -26,12 +37,12 @@ class HomeFragment extends StatelessWidget {
       ));
 
       indicatorList.add(Container(
-        height: 20,
+        width: 15,
+        height: 3,
+        margin: const EdgeInsets.only(right: 4),
         decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.blueAccent,
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(10))),
+            color: _current == i ? Colors.blueAccent : Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(1.5))),
       ));
     }
     return Column(
@@ -39,17 +50,25 @@ class HomeFragment extends StatelessWidget {
         Stack(children: [
           CarouselSlider(
             items: sliderList,
-
-            //Slider Container properties
             options: CarouselOptions(
-              height: 180,
-              enlargeCenterPage: false,
-              autoPlay: true,
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enableInfiniteScroll: true,
-              autoPlayInterval: const Duration(milliseconds: 3000),
-              autoPlayAnimationDuration: const Duration(milliseconds: 1000),
-              viewportFraction: 0.8,
+                enlargeCenterPage: false,
+                autoPlay: true,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                autoPlayInterval: const Duration(milliseconds: 3000),
+                autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+                viewportFraction: 1,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _current = index;
+                  });
+                }),
+          ),
+          Positioned(
+            bottom: 30,
+            right: 30,
+            child: Row(
+              children: indicatorList,
             ),
           ),
         ]),

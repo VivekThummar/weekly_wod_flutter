@@ -2,11 +2,14 @@
 class Assets {
   Assets._();
 
+  static const String imagesCaptainAmerica = 'images/captain_america.jpg';
+  static const String imagesDoctorStrange = 'images/doctor_strange.jpg';
   static const String imagesFacebook = 'images/facebook.png';
   static const String imagesGoogle = 'images/google.png';
+  static const String imagesHulk = 'images/hulk.jpg';
   static const String imagesIcDrawer = 'images/ic_drawer.png';
   static const String imagesIcDrawerContactUs = 'images/ic_drawer_contact_us.png';
-  static const String imagesIcDrawerHomee = 'images/ic_drawer_home.png';
+  static const String imagesIcDrawerHome = 'images/ic_drawer_home.png';
   static const String imagesIcDrawerNotification = 'images/ic_drawer_notification.png';
   static const String imagesIcDrawerPoints = 'images/ic_drawer_points.png';
   static const String imagesIcDrawerProfile = 'images/ic_drawer_profile.png';
@@ -16,6 +19,8 @@ class Assets {
   static const String imagesIcGoogle = 'images/ic_google.png';
   static const String imagesIcHomepageLogo = 'images/ic_homepage_logo.png';
   static const String imagesIcProfileMen = 'images/ic_profile_men.png';
+  static const String imagesIronMan = 'images/iron_man.png';
   static const String imagesLogo = 'images/logo.png';
+  static const String imagesThor = 'images/thor.jpg';
 
 }

@@ -4,6 +4,7 @@ import 'package:weekly_wod_flutter/Constant/StringConstants.dart';
 import 'package:weekly_wod_flutter/fragments/HomeFragment.dart';
 import 'package:weekly_wod_flutter/fragments/MyPointsFragment.dart';
 import 'package:weekly_wod_flutter/fragments/SettingsFragment.dart';
+import 'package:weekly_wod_flutter/generated/assets.dart';
 
 class DrawerItem {
   String title;
@@ -17,14 +18,14 @@ class HomeActivity extends StatefulWidget {
     DrawerItem(
         "Home",
         Image.asset(
-          'images/ic_drawer_home.png',
+          Assets.imagesIcDrawerHome,
           color: ColorConstants.textDarkColor,
         )),
-    DrawerItem("My Point", Image.asset('images/ic_drawer_points.png')),
-    DrawerItem("Settings", Image.asset('images/ic_drawer_settings.png')),
-    DrawerItem("Profile", Image.asset('images/ic_drawer_profile.png')),
-    DrawerItem("Contact us", Image.asset('images/ic_drawer_notification.png')),
-    DrawerItem("Sign Out", Image.asset('images/ic_drawer_contact_us.png')),
+    DrawerItem("My Point", Image.asset(Assets.imagesIcDrawerPoints)),
+    DrawerItem("Settings", Image.asset(Assets.imagesIcDrawerSettings)),
+    DrawerItem("Profile", Image.asset(Assets.imagesIcDrawerProfile)),
+    DrawerItem("Contact us", Image.asset(Assets.imagesIcDrawerNotification)),
+    DrawerItem("Sign Out", Image.asset(Assets.imagesIcDrawerContactUs)),
   ];
 
   HomeActivity({Key? key}) : super(key: key);
@@ -71,7 +72,7 @@ class HomeBodyState extends State<HomeActivity> {
     }
     drawerOptions.add(ListTile(
       leading: Image.asset(
-        'images/ic_drawer_sign_out.png',
+        Assets.imagesIcDrawerSignOut,
         color: ColorConstants.colorRed,
         width: 24,
         height: 24,
@@ -83,34 +84,36 @@ class HomeBodyState extends State<HomeActivity> {
       ),
     ));
 
-    return Scaffold(
-        appBar: const CustomToolBar(),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              UserAccountsDrawerHeader(
-                decoration: const BoxDecoration(
-                  color: ColorConstants.themeColor,
-                ),
-                accountName: const Text("Vivek Thummar"),
-                accountEmail: null,
-                currentAccountPicture: InkWell(
-                  child: InkWell(
-                    onTap: () {},
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(35.0),
-                      child: Image.asset('images/ic_profile_men.png',
-                          width: 70.0, height: 70.0),
+    return SafeArea(
+      child: Scaffold(
+          appBar: const CustomToolBar(),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                UserAccountsDrawerHeader(
+                  decoration: const BoxDecoration(
+                    color: ColorConstants.themeColor,
+                  ),
+                  accountName: const Text("Vivek Thummar"),
+                  accountEmail: null,
+                  currentAccountPicture: InkWell(
+                    child: InkWell(
+                      onTap: () {},
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(35.0),
+                        child: Image.asset(Assets.imagesIcProfileMen,
+                            width: 70.0, height: 70.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Column(children: drawerOptions)
-            ],
+                Column(children: drawerOptions)
+              ],
+            ),
           ),
-        ),
-        body: _getDrawerItemWidget(_selectedDrawerIndex),
+          body: _getDrawerItemWidget(_selectedDrawerIndex),
+      ),
     );
   }
 }
@@ -140,7 +143,7 @@ class ToolBarState extends State<CustomToolBar> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Image.asset(
-                    'images/ic_homepage_logo.png',
+                    Assets.imagesIcHomepageLogo,
                     width: 250,
                   ),
                 )),
@@ -152,7 +155,7 @@ class ToolBarState extends State<CustomToolBar> {
                 Scaffold.of(context).openDrawer();
               },
               child: Image.asset(
-                'images/ic_drawer.png',
+                Assets.imagesIcDrawer,
                 width: 24,
                 height: 24,
               ),

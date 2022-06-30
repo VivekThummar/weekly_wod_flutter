@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
 import 'package:weekly_wod_flutter/Constant/StringConstants.dart';
+import 'package:weekly_wod_flutter/generated/assets.dart';
 
 class CommonLogoToolBar extends StatefulWidget {
   const CommonLogoToolBar({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class ToolBarState extends State<CommonLogoToolBar> {
       child: Column(
         children: <Widget>[
           Image.asset(
-            'images/logo.png',
+            Assets.imagesLogo,
             width: 80,
             height: 50,
           ),
