@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/generated/assets.dart';
+import 'package:weekly_wod_flutter/models/HomeButtonModel.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({Key? key}) : super(key: key);
@@ -20,6 +21,21 @@ class HomeFragmentState extends State<HomeFragment> {
     Image.asset(Assets.imagesHulk).image,
     Image.asset(Assets.imagesIronMan).image,
     Image.asset(Assets.imagesThor).image
+  ];
+
+  final List<HomeButtonModel> buttonList = [
+    HomeButtonModel(
+        title: 'Join Contest',
+        icon: Image.asset(Assets.imagesIcHomeJoin).image),
+    HomeButtonModel(
+        title: 'My Submission',
+        icon: Image.asset(Assets.imagesIcHomeSubmission).image),
+    HomeButtonModel(
+        title: 'My Profile',
+        icon: Image.asset(Assets.imagesIcHomeProfile).image),
+    HomeButtonModel(
+        title: 'Leaderboard',
+        icon: Image.asset(Assets.imagesIcLeaderboardHome).image)
   ];
 
   @override
@@ -45,33 +61,63 @@ class HomeFragmentState extends State<HomeFragment> {
             borderRadius: const BorderRadius.all(Radius.circular(1.5))),
       ));
     }
+
     return Column(
       children: [
-        Stack(children: [
-          CarouselSlider(
-            items: sliderList,
-            options: CarouselOptions(
-                enlargeCenterPage: false,
-                autoPlay: true,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                autoPlayInterval: const Duration(milliseconds: 3000),
-                autoPlayAnimationDuration: const Duration(milliseconds: 1000),
-                viewportFraction: 1,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
-          ),
-          Positioned(
-            bottom: 30,
-            right: 30,
-            child: Row(
-              children: indicatorList,
+        Stack(
+          children: [
+            CarouselSlider(
+              items: sliderList,
+              options: CarouselOptions(
+                  enlargeCenterPage: false,
+                  autoPlay: true,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enableInfiniteScroll: true,
+                  autoPlayInterval: const Duration(milliseconds: 3000),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+                  viewportFraction: 1,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });
+                  }),
             ),
-          ),
-        ]),
+            Positioned(
+              bottom: 30,
+              right: 30,
+              child: Row(
+                children: indicatorList,
+              ),
+            ),
+          ],
+        ),
+        // GridView(
+        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //     crossAxisCount: 2,
+        //   ),
+        //   children: List.generate(buttonList.length, (index) {
+        //     return Center(
+        //       child: Card(
+        //           color: Colors.orange,
+        //           child: Center(
+        //             child: Column(
+        //                 crossAxisAlignment: CrossAxisAlignment.center,
+        //                 children: <Widget>[
+        //                   Expanded(
+        //                       child: Container(
+        //                     decoration: BoxDecoration(
+        //                       image: DecorationImage(
+        //                         image: buttonList.elementAt(index).icon,
+        //                         fit: BoxFit.cover,
+        //                       ),
+        //                     ),
+        //                   )),
+        //                   Text(buttonList.elementAt(index).title),
+        //                 ]),
+        //           )),
+        //     );
+        //   }),
+        // )
       ],
     );
   }

@@ -17,7 +17,11 @@ class Assets {
   static const String imagesIcDrawerSignOut = 'images/ic_drawer_sign_out.png';
   static const String imagesIcFacebook = 'images/ic_facebook.png';
   static const String imagesIcGoogle = 'images/ic_google.png';
+  static const String imagesIcHomeJoin = 'images/ic_home_join.png';
+  static const String imagesIcHomeProfile = 'images/ic_home_profile.png';
+  static const String imagesIcHomeSubmission = 'images/ic_home_submission.png';
   static const String imagesIcHomepageLogo = 'images/ic_homepage_logo.png';
+  static const String imagesIcLeaderboardHome = 'images/ic_leaderboard_home.png';
   static const String imagesIcProfileMen = 'images/ic_profile_men.png';
   static const String imagesIronMan = 'images/iron_man.png';
   static const String imagesLogo = 'images/logo.png';
