@@ -48,6 +48,13 @@ class FontConstant {
         fontWeight: FontWeight.w600);
   }
 
+  static TextStyle regular12TextDark() {
+    return const TextStyle(
+        color: ColorConstants.textDarkColor,
+        fontFamily: 'rubik',
+        fontSize: 12,);
+  }
+
   static TextStyle regular13TextDark() {
     return const TextStyle(
       color: ColorConstants.textDarkColor,
