@@ -6,7 +6,9 @@ import 'package:weekly_wod_flutter/CommonViews/CommonLogoToolBar.dart';
 import 'package:weekly_wod_flutter/CommonViews/ThemeRectangle.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
+import 'package:weekly_wod_flutter/apis/ApiClient.dart';
 import 'package:weekly_wod_flutter/generated/assets.dart';
+import 'package:weekly_wod_flutter/models/LoginResponseModel.dart';
 
 class LoginActivity extends StatefulWidget {
   const LoginActivity({Key? key}) : super(key: key);
@@ -49,6 +51,9 @@ class LoginBodyState extends State<LoginActivity> {
     }
     _formKey.currentState?.reset();
 
+    Map map = {'username': userName, 'password': password, 'device_tokon': '54545545454', 'device_type': 'A'};
+
+    Future<LoginResponse?> response = HttpServices().userLogin(map);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => HomeActivity()));
   }
