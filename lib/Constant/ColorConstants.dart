@@ -6,7 +6,7 @@ class ColorConstants {
   static const inputTextColor = Color(0xFF6C757D);
   static const dividerColor = Color(0xFFE0E0E0);
 
-  static const colorOrange = Color(0xFFF2994A);
+  static const colorYellow = Color(0xFFF2994A);
   static const colorGreen = Color(0xFF27AE60);
   static const colorRed = Color(0xFFEB5757);
   static const coloSemiRed = Color(0x30EB5757);

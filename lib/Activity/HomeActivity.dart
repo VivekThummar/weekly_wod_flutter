@@ -42,7 +42,7 @@ class HomeBodyState extends State<HomeActivity> {
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-        return HomeFragment();
+        return const HomeFragment();
       case 1:
         return const MyPointsFragment();
       case 2:

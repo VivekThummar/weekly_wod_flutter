@@ -7,6 +7,7 @@ class Assets {
   static const String imagesFacebook = 'images/facebook.png';
   static const String imagesGoogle = 'images/google.png';
   static const String imagesHulk = 'images/hulk.jpg';
+  static const String imagesIcContestCoin = 'images/ic_contest_coin.svg';
   static const String imagesIcDrawer = 'images/ic_drawer.png';
   static const String imagesIcDrawerContactUs = 'images/ic_drawer_contact_us.png';
   static const String imagesIcDrawerHome = 'images/ic_drawer_home.png';

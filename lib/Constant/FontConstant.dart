@@ -50,9 +50,34 @@ class FontConstant {
 
   static TextStyle regular12TextDark() {
     return const TextStyle(
-        color: ColorConstants.textDarkColor,
-        fontFamily: 'rubik',
-        fontSize: 12,);
+      color: ColorConstants.textDarkColor,
+      fontFamily: 'rubik',
+      fontSize: 12,
+    );
+  }
+
+  static TextStyle regular12InputText() {
+    return const TextStyle(
+      color: ColorConstants.inputTextColor,
+      fontFamily: 'rubik',
+      fontSize: 12,
+    );
+  }
+
+  static TextStyle regular12Green() {
+    return const TextStyle(
+      color: ColorConstants.colorGreen,
+      fontFamily: 'rubik',
+      fontSize: 12,
+    );
+  }
+
+  static TextStyle regular12Yellow() {
+    return const TextStyle(
+      color: ColorConstants.colorYellow,
+      fontFamily: 'rubik',
+      fontSize: 12,
+    );
   }
 
   static TextStyle regular13TextDark() {

@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui show PlaceholderAlignment;
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
 import 'package:weekly_wod_flutter/generated/assets.dart';
@@ -99,41 +101,37 @@ class HomeFragmentState extends State<HomeFragment> {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
             child: Column(
               children: [
-                SizedBox(
-                  child: GridView(
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 3,
-                      crossAxisSpacing: 3,
-                    ),
-                    children: List.generate(buttonList.length, (index) {
-                      return Card(
-                          elevation: 3,
-                          child: Center(
-                            child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Container(
-                                    width: 80,
-                                    height: 80,
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: buttonList.elementAt(index).icon,
-                                      ),
+                GridView(
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 3,
+                    crossAxisSpacing: 3,
+                  ),
+                  children: List.generate(buttonList.length, (index) {
+                    return Card(
+                        elevation: 3,
+                        child: Center(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: buttonList.elementAt(index).icon,
                                     ),
                                   ),
-                                  Text(
-                                    buttonList.elementAt(index).title,
-                                    style: FontConstant.regular12TextDark(),
-                                  ),
-                                ]),
-                          ));
-                    }),
-                  ),
+                                ),
+                                Text(
+                                  buttonList.elementAt(index).title,
+                                  style: FontConstant.regular12TextDark(),
+                                ),
+                              ]),
+                        ));
+                  }),
                 ),
                 const SizedBox(height: 10),
                 const Divider(
@@ -149,11 +147,148 @@ class HomeFragmentState extends State<HomeFragment> {
                     textAlign: TextAlign.start,
                   ),
                 ),
+                Card(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: ClipRRect(
+                      // clip the image to a circle
+                      borderRadius: BorderRadius.circular(5),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 180,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(8.0),
+                                    topRight: Radius.circular(8.0)),
+                                image: DecorationImage(
+                                  image: Image.asset(Assets.imagesHulk).image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    'Current Contest NameCurrent Contest NameCurrent Contest Name',
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: FontConstant.semiBold12TextDark(),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                    child: const Text('Register'),
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      primary: ColorConstants.themeColor,
+                                      // background
+                                      onPrimary: Colors.white, // foreground
+                                    )),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: RichText(
+                                    textAlign: TextAlign.start,
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Entry : ',
+                                          style:
+                                              FontConstant.regular12InputText(),
+                                        ),
+                                        TextSpan(
+                                          text: '500 ',
+                                          style:
+                                              FontConstant.regular12InputText(),
+                                        ),
+                                        WidgetSpan(
+                                            // child: getSvgIcon('images/ic_contest_coin.svg'),
+                                            child: getSvgIcon(
+                                                './ic_contest_coin.svg'),
+                                            alignment:
+                                                ui.PlaceholderAlignment.middle),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                      children: [
+                                        WidgetSpan(
+                                            // child: getSvgIcon('images/ic_contest_coin.svg'),
+                                            child: getSvgIcon(
+                                                './ic_contest_trophy.svg'),
+                                            alignment:
+                                                ui.PlaceholderAlignment.middle),
+                                        TextSpan(
+                                          text: ' 3/',
+                                          style: FontConstant.regular12Green(),
+                                        ),
+                                        TextSpan(
+                                          text: 'winner',
+                                          style: FontConstant.regular12Green(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: RichText(
+                                    textAlign: TextAlign.end,
+                                    text: TextSpan(
+                                      children: [
+                                        WidgetSpan(
+                                            // child: getSvgIcon('images/ic_contest_coin.svg'),
+                                            child: getSvgIcon(
+                                                './ic_contest_watch_yellow.svg'),
+                                            alignment:
+                                                ui.PlaceholderAlignment.middle),
+                                        TextSpan(
+                                          text: ' 5 ',
+                                          style: FontConstant.regular12Yellow(),
+                                        ),
+                                        TextSpan(
+                                          text: 'Days',
+                                          style: FontConstant.regular12Yellow(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // child: Container(height: 200, color: Colors.grey,),
+                    ))
               ],
             ),
           )
         ],
       ),
     );
+  }
+
+  SvgPicture getSvgIcon(String assetName) {
+    return SvgPicture.asset(assetName);
   }
 }
