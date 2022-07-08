@@ -1,19 +1,45 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:weekly_wod_flutter/apis/HttpParams.dart';
-import 'package:weekly_wod_flutter/models/LoginResponseModel.dart';
+import 'package:weekly_wod_flutter/models/LoginResponse.dart';
 
 class HttpServices {
   final String baseUrl = 'https://potenzaglobal.net/weeklywodthrowdown/api/';
 
-  Future<LoginResponse?> userLogin(Map<dynamic, dynamic> map) async {
-    Response response = await post(Uri.parse(baseUrl + HttpParams.getLogin), body: map);
+  String accessToken = "WeeklythrowWood072a653";
+  String authorizationUserName = "0fca3496da7d4148e13c054257edf4fc";
+  String authorizationPassword = "0fca3496da7d4148e13c054257edf4fc";
+  String usernameAndPassword = '';
+  Map<String, String> headers = {};
+
+  HttpServices() {
+    usernameAndPassword = "$authorizationUserName:$authorizationPassword";
+    Codec<String, String> stringToBase64 = utf8.fuse(base64);
+    String encoded = stringToBase64.encode(usernameAndPassword);
+    String creds = 'Basic $encoded';
+
+    String temp = 'Basic ' + base64Encode(utf8.encode(
+        '$authorizationUserName:$authorizationPassword'));
+
+    headers = {
+      // 'content-type': 'application/form-data',
+      'Authorization': temp,
+      'Access-Token': accessToken,
+      'Login-Key': ''
+    };
+  }
+
+  Future<LoginResponse> userLogin(Map<dynamic, dynamic> map) async {
+    Response response =
+        await post(Uri.parse(baseUrl + HttpParams.getLogin),headers: headers, body: map);
     if (response.statusCode == 200) {
-      LoginResponse model = jsonDecode(response.body);
+      debugPrint(response.body);
+      LoginResponse model = LoginResponse.fromJson(jsonDecode(response.body));
       return model;
     } else {
-      return null;
+      return LoginResponse();
     }
   }
 }

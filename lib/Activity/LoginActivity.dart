@@ -8,7 +8,7 @@ import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
 import 'package:weekly_wod_flutter/apis/ApiClient.dart';
 import 'package:weekly_wod_flutter/generated/assets.dart';
-import 'package:weekly_wod_flutter/models/LoginResponseModel.dart';
+import 'package:weekly_wod_flutter/models/LoginResponse.dart';
 
 class LoginActivity extends StatefulWidget {
   const LoginActivity({Key? key}) : super(key: key);
@@ -39,23 +39,37 @@ class LoginBodyState extends State<LoginActivity> {
   final _formKey = GlobalKey<FormState>();
   bool _switchValue = false;
 
-  void _submit() {
+  Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate();
     if (_switchValue) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => HomeActivity()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomeActivity()));
       return;
     }
     if (!isValid!) {
       return;
     }
-    _formKey.currentState?.reset();
 
-    Map map = {'username': userName, 'password': password, 'device_tokon': '54545545454', 'device_type': 'A'};
+    Map map = {
+      'username': userName,
+      'password': password,
+      'device_tokon': '54545545454',
+      'device_type': 'A'
+    };
 
-    Future<LoginResponse?> response = HttpServices().userLogin(map);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomeActivity()));
+    LoginResponse model = await HttpServices().userLogin(map);
+    if (model.success != null && model.success!) {
+      debugPrint('Login Successful');
+      _formKey.currentState?.reset();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomeActivity()));
+    } else {
+      if (model.status == 406) {
+        debugPrint('Already Login in other Device');
+      } else {
+        debugPrint('Login Failed');
+      }
+    }
   }
 
   @override
