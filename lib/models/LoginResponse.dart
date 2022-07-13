@@ -135,21 +135,27 @@ String messageToJson(Message data) => json.encode(data.toJson());
 class Message {
   Message({
     String? success,
+    String? error,
   }) {
     _success = success;
+    _error = error;
   }
 
   Message.fromJson(dynamic json) {
     _success = json['success'];
+    _error = json['error'];
   }
 
   String? _success;
+  String? _error;
 
   String? get success => _success;
+  String? get error => _error;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['success'] = _success;
+    map['error'] = _error;
     return map;
   }
 }

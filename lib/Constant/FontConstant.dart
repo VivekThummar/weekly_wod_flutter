@@ -2,41 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
 
 class FontConstant {
-  // static TextStyle createStyle(
-  //     Color txtColor, String family, double size, FontWeight weight) {
-  //   return TextStyle(
-  //       color: txtColor,
-  //       fontFamily: family,
-  //       fontSize: size,
-  //       fontWeight: weight);
-  // }
+  // pre - now
+  // 11 - 13
+  // 12 - 14
+  // 13 - 15
+  // 14 - 16
 
   static TextStyle semiBold12White() {
     return const TextStyle(
         color: Colors.white,
         fontFamily: 'rubik',
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w600);
+  }
+
+  static TextStyle regular16White() {
+    return const TextStyle(
+        color: Colors.white, fontFamily: 'rubik', fontSize: 16);
+  }
+
+  static TextStyle regular14White() {
+    return const TextStyle(
+        color: Colors.white, fontFamily: 'rubik', fontSize: 14);
   }
 
   static TextStyle semiBold14Theme() {
     return const TextStyle(
         color: ColorConstants.themeColor,
         fontFamily: 'rubik',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.w600);
   }
 
   static TextStyle regular11TextDark() {
     return const TextStyle(
-        color: ColorConstants.textDarkColor, fontFamily: 'rubik', fontSize: 11);
+        color: ColorConstants.textDarkColor, fontFamily: 'rubik', fontSize: 13);
   }
 
   static TextStyle semiBoldThemeButton() {
     return const TextStyle(
         color: Colors.white,
         fontFamily: 'rubik',
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w600);
   }
 
@@ -44,7 +51,7 @@ class FontConstant {
     return const TextStyle(
         color: ColorConstants.textDarkColor,
         fontFamily: 'rubik',
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w600);
   }
 
@@ -52,7 +59,7 @@ class FontConstant {
     return const TextStyle(
       color: ColorConstants.textDarkColor,
       fontFamily: 'rubik',
-      fontSize: 12,
+      fontSize: 14,
     );
   }
 
@@ -60,7 +67,7 @@ class FontConstant {
     return const TextStyle(
       color: ColorConstants.inputTextColor,
       fontFamily: 'rubik',
-      fontSize: 12,
+      fontSize: 14,
     );
   }
 
@@ -68,7 +75,7 @@ class FontConstant {
     return const TextStyle(
       color: ColorConstants.colorGreen,
       fontFamily: 'rubik',
-      fontSize: 12,
+      fontSize: 14,
     );
   }
 
@@ -76,7 +83,7 @@ class FontConstant {
     return const TextStyle(
       color: ColorConstants.colorYellow,
       fontFamily: 'rubik',
-      fontSize: 12,
+      fontSize: 14,
     );
   }
 
@@ -84,7 +91,7 @@ class FontConstant {
     return const TextStyle(
       color: ColorConstants.textDarkColor,
       fontFamily: 'rubik',
-      fontSize: 13,
+      fontSize: 15,
     );
   }
 }

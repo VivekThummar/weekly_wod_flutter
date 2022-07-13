@@ -16,24 +16,20 @@ class HttpServices {
 
   HttpServices() {
     usernameAndPassword = "$authorizationUserName:$authorizationPassword";
-    Codec<String, String> stringToBase64 = utf8.fuse(base64);
-    String encoded = stringToBase64.encode(usernameAndPassword);
-    String creds = 'Basic $encoded';
 
-    String temp = 'Basic ' + base64Encode(utf8.encode(
-        '$authorizationUserName:$authorizationPassword'));
+    String creds = 'Basic ' + base64Encode(utf8.encode(usernameAndPassword));
 
     headers = {
       // 'content-type': 'application/form-data',
-      'Authorization': temp,
+      'Authorization': creds,
       'Access-Token': accessToken,
       'Login-Key': ''
     };
   }
 
   Future<LoginResponse> userLogin(Map<dynamic, dynamic> map) async {
-    Response response =
-        await post(Uri.parse(baseUrl + HttpParams.getLogin),headers: headers, body: map);
+    Response response = await post(Uri.parse(baseUrl + HttpParams.getLogin),
+        headers: headers, body: map);
     if (response.statusCode == 200) {
       debugPrint(response.body);
       LoginResponse model = LoginResponse.fromJson(jsonDecode(response.body));

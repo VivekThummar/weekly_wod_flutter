@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
-import 'package:weekly_wod_flutter/Constant/StringConstants.dart';
+import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
 import 'package:weekly_wod_flutter/fragments/HomeFragment.dart';
 import 'package:weekly_wod_flutter/fragments/MyPointsFragment.dart';
 import 'package:weekly_wod_flutter/fragments/SettingsFragment.dart';
@@ -24,8 +24,8 @@ class HomeActivity extends StatefulWidget {
     DrawerItem("My Point", Image.asset(Assets.imagesIcDrawerPoints)),
     DrawerItem("Settings", Image.asset(Assets.imagesIcDrawerSettings)),
     DrawerItem("Profile", Image.asset(Assets.imagesIcDrawerProfile)),
-    DrawerItem("Contact us", Image.asset(Assets.imagesIcDrawerNotification)),
-    DrawerItem("Sign Out", Image.asset(Assets.imagesIcDrawerContactUs)),
+    DrawerItem("Notification", Image.asset(Assets.imagesIcDrawerNotification)),
+    DrawerItem("Contact us", Image.asset(Assets.imagesIcDrawerContactUs)),
   ];
 
   HomeActivity({Key? key}) : super(key: key);
@@ -49,7 +49,7 @@ class HomeBodyState extends State<HomeActivity> {
         return const SettingsFragment();
 
       default:
-        return const Text("Error");
+        return const Center(child: Text("Error"));
     }
   }
 
@@ -65,7 +65,7 @@ class HomeBodyState extends State<HomeActivity> {
       var d = widget.drawerItems[i];
       drawerOptions.add(ListTile(
         leading: d.icon,
-        title: Text(d.title),
+        title: Text(d.title, style: FontConstant.regular13TextDark()),
         selected: i == _selectedDrawerIndex,
         onTap: () => _onSelectItem(i),
       ));
@@ -78,7 +78,7 @@ class HomeBodyState extends State<HomeActivity> {
         height: 24,
       ),
       title: const Text(
-        StringConstants.strSignOut,
+        'Sign Out',
         style: TextStyle(
             color: ColorConstants.colorRed, fontFamily: 'rubik', fontSize: 13),
       ),
@@ -93,21 +93,22 @@ class HomeBodyState extends State<HomeActivity> {
               children: [
                 UserAccountsDrawerHeader(
                   decoration: const BoxDecoration(
-                    color: ColorConstants.themeColor,
-                  ),
-                  accountName: const Text("Vivek Thummar"),
-                  accountEmail: null,
-                  currentAccountPicture: InkWell(
-                    child: InkWell(
-                      onTap: () {},
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(35.0),
-                        child: Image.asset(Assets.imagesIcProfileMen,
-                            width: 70.0, height: 70.0),
-                      ),
+                  color: ColorConstants.themeColor,
+                ),
+                accountName:
+                    Text('Billy Butcher', style: FontConstant.regular16White()),
+                accountEmail: null,
+                currentAccountPicture: InkWell(
+                  child: InkWell(
+                    onTap: () {},
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(35.0),
+                      child: Image.asset(Assets.imagesIcProfileMen,
+                          width: 70.0, height: 70.0),
                     ),
                   ),
                 ),
+              ),
                 Column(children: drawerOptions)
               ],
             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
-import 'package:weekly_wod_flutter/Constant/StringConstants.dart';
 import 'package:weekly_wod_flutter/generated/assets.dart';
 
 class CommonLogoToolBar extends StatefulWidget {
@@ -26,7 +25,7 @@ class ToolBarState extends State<CommonLogoToolBar> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Text(
-              StringConstants.appTitle,
+              'WEEKLY WOD THROWDOWN',
               style: FontConstant.semiBold12White(),
             ),
           )

@@ -10,4 +10,5 @@ class ColorConstants {
   static const colorGreen = Color(0xFF27AE60);
   static const colorRed = Color(0xFFEB5757);
   static const coloSemiRed = Color(0x30EB5757);
+  static const colorToastBg = Color(0xFF263238);
 }

@@ -1,6 +1,7 @@
+import 'dart:ui' as ui show PlaceholderAlignment;
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui show PlaceholderAlignment;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
@@ -80,7 +81,7 @@ class HomeFragmentState extends State<HomeFragment> {
                     enableInfiniteScroll: true,
                     autoPlayInterval: const Duration(milliseconds: 3000),
                     autoPlayAnimationDuration:
-                        const Duration(milliseconds: 1000),
+                    const Duration(milliseconds: 1000),
                     viewportFraction: 1,
                     onPageChanged: (index, reason) {
                       setState(() {
@@ -103,6 +104,7 @@ class HomeFragmentState extends State<HomeFragment> {
               children: [
                 GridView(
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 3,
@@ -208,19 +210,19 @@ class HomeFragmentState extends State<HomeFragment> {
                                         TextSpan(
                                           text: 'Entry : ',
                                           style:
-                                              FontConstant.regular12InputText(),
+                                          FontConstant.regular12InputText(),
                                         ),
                                         TextSpan(
                                           text: '500 ',
                                           style:
-                                              FontConstant.regular12InputText(),
+                                          FontConstant.regular12InputText(),
                                         ),
                                         WidgetSpan(
-                                            // child: getSvgIcon('images/ic_contest_coin.svg'),
+                                          // child: getSvgIcon('images/ic_contest_coin.svg'),
                                             child: getSvgIcon(
                                                 './ic_contest_coin.svg'),
                                             alignment:
-                                                ui.PlaceholderAlignment.middle),
+                                            ui.PlaceholderAlignment.middle),
                                       ],
                                     ),
                                   ),
@@ -228,15 +230,15 @@ class HomeFragmentState extends State<HomeFragment> {
                                 Expanded(
                                   flex: 1,
                                   child: RichText(
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                     text: TextSpan(
                                       children: [
                                         WidgetSpan(
-                                            // child: getSvgIcon('images/ic_contest_coin.svg'),
+                                          // child: getSvgIcon('images/ic_contest_coin.svg'),
                                             child: getSvgIcon(
                                                 './ic_contest_trophy.svg'),
                                             alignment:
-                                                ui.PlaceholderAlignment.middle),
+                                            ui.PlaceholderAlignment.middle),
                                         TextSpan(
                                           text: ' 3/',
                                           style: FontConstant.regular12Green(),
@@ -256,11 +258,11 @@ class HomeFragmentState extends State<HomeFragment> {
                                     text: TextSpan(
                                       children: [
                                         WidgetSpan(
-                                            // child: getSvgIcon('images/ic_contest_coin.svg'),
+                                          // child: getSvgIcon('images/ic_contest_coin.svg'),
                                             child: getSvgIcon(
                                                 './ic_contest_watch_yellow.svg'),
                                             alignment:
-                                                ui.PlaceholderAlignment.middle),
+                                            ui.PlaceholderAlignment.middle),
                                         TextSpan(
                                           text: ' 5 ',
                                           style: FontConstant.regular12Yellow(),

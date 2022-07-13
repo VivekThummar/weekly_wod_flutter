@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:weekly_wod_flutter/Activity/HomeActivity.dart';
 import 'package:weekly_wod_flutter/Activity/RegisterActivity.dart';
 import 'package:weekly_wod_flutter/CommonViews/CommonLogoToolBar.dart';
 import 'package:weekly_wod_flutter/CommonViews/ThemeRectangle.dart';
 import 'package:weekly_wod_flutter/Constant/ColorConstants.dart';
 import 'package:weekly_wod_flutter/Constant/FontConstant.dart';
+import 'package:weekly_wod_flutter/ToastView.dart';
 import 'package:weekly_wod_flutter/apis/ApiClient.dart';
 import 'package:weekly_wod_flutter/generated/assets.dart';
 import 'package:weekly_wod_flutter/models/LoginResponse.dart';
@@ -38,6 +40,7 @@ class LoginBodyState extends State<LoginActivity> {
 
   final _formKey = GlobalKey<FormState>();
   bool _switchValue = false;
+  late FToast fToast = FToast();
 
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate();
@@ -67,6 +70,14 @@ class LoginBodyState extends State<LoginActivity> {
       if (model.status == 406) {
         debugPrint('Already Login in other Device');
       } else {
+        if(model.message != null && model.message!.error != null) {
+          Widget test = ToastView(model.message!.error!);
+          fToast.showToast(
+            child: test,
+            gravity: ToastGravity.TOP,
+            toastDuration: const Duration(seconds: 2),
+          );
+        }
         debugPrint('Login Failed');
       }
     }
@@ -74,6 +85,7 @@ class LoginBodyState extends State<LoginActivity> {
 
   @override
   Widget build(BuildContext context) {
+    fToast.init(context);
     return Scaffold(
       backgroundColor: ColorConstants.themeColor,
       body: SafeArea(
@@ -89,6 +101,7 @@ class LoginBodyState extends State<LoginActivity> {
               padding: const EdgeInsets.only(top: 175.0),
               child: Center(
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       const SizedBox(height: 25),
